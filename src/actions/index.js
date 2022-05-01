@@ -1,5 +1,6 @@
-import React from "react"
+export const fetchPosts = () => {
+	return {
+		type: 'FETCH_POSTS'
+	};
+};
 
-const actions = () => {
-	console.log('actions');
-}
