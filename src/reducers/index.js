@@ -1,7 +1,5 @@
-import React from 'react';
+import {combineReducers} from "redux";
 
-export const reduct = () => {
-	console.log('reducer');
-}
-
-export default reduct;
+export default combineReducers({
+	replaceMe: () => 'hi there'
+});
