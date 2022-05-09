@@ -6,3 +6,10 @@ export const fetchPosts = () => async dispatch => {
 }
 
 
+// Todo: Create an action creator to fetch one user at a time
+export const fetchUser = (id) => async dispatch => {
+	const response = await jsonPlaceholder.get(`/users/${id}`);
+	dispatch({type: 'FETCH_USER', payload: response.data});
+}
+
+
