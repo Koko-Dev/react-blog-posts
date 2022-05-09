@@ -26,7 +26,6 @@ class PostList extends React.Component {
 	}
 
 	render() {
-		// console.log(this.props.posts);
 		return (
 			<div className="ui relaxed divided list">
 				{this.renderList()}
@@ -36,10 +35,10 @@ class PostList extends React.Component {
 }
 
 const mapStateToProps = (state) =>  {
-	// console.log(state);
 	return { posts: state.posts };
 }
 
-export default connect(mapStateToProps, {
-	fetchPosts: fetchPosts
-})(PostList);
+export default connect(mapStateToProps,
+	{
+		fetchPosts: fetchPosts
+	})(PostList);

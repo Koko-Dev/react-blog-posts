@@ -9,6 +9,7 @@ class UserHeader extends React.Component {
 	render() {
 		const { user } = this.props;
 
+
 		if (!user) {
 			return null;
 		}
@@ -17,16 +18,13 @@ class UserHeader extends React.Component {
 	}
 }
 
-// Todo: Wire this up to Redux State which will then
-//  give UserHeader class component access to this.state.users
-// Note: ownProps argument gives us access to props going
-//  into UserHeader Component
 const mapStateToProps = (state, ownProps) => {
-	// finds the appropriate user
 	return {user: state.users.find(user => user.id === ownProps.userId)}
 }
 
 export default connect(
 	mapStateToProps,
-	{fetchUser}
+	{
+		fetchUser
+	}
 )(UserHeader);
