@@ -6,7 +6,12 @@ export const fetchPostsAndUsers = () => async (dispatch, getState) => {
 	await dispatch(fetchPosts());
 	console.log('fetched posts!')
 
-	console.log(	getState().posts);
+	// console.log(	getState().posts);
+
+	// Array of all userIds, then get the unique ones only
+	// OP:  (10) [1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+	const userIds = _.uniq(_.map(getState().posts, 'userId'));
+	console.log(userIds);
 }
 
 export const fetchPosts = () => async dispatch => {
