@@ -2,16 +2,27 @@ import _ from 'lodash';
 import jsonPlaceholder from '../apis/jsonPlaceholder';
 
 export const fetchPostsAndUsers = () => async (dispatch, getState) => {
-	console.log('about to fecth posts');
 	await dispatch(fetchPosts());
-	console.log('fetched posts!')
 
 	// console.log(	getState().posts);
 
 	// Array of all userIds, then get the unique ones only
 	// OP:  (10) [1, 2, 3, 4, 5, 6, 7, 8, 9, 10
 	const userIds = _.uniq(_.map(getState().posts, 'userId'));
-	console.log(userIds);
+	/*
+	 console.log(userIds);
+	 Todo: Iterate over the Array of ids and for every id
+	  call action creator dispatch(fetchUser(id))
+	 Note: We will not put an await before dispatch because
+	  we will have no other logic after this which would
+	  require we fetch anymore users
+	 Important: the async/await syntax DOES NOT work
+	  for forEach() statements and would have to adjust:  for example
+	 Code:
+	    await Promise.all(userIds.map(id => dispatch(fetchUser(id)))  etc...
+	 */
+
+	userIds.forEach(id => dispatch(fetchUser(id)));
 }
 
 export const fetchPosts = () => async dispatch => {
