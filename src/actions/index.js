@@ -4,25 +4,17 @@ import jsonPlaceholder from '../apis/jsonPlaceholder';
 export const fetchPostsAndUsers = () => async (dispatch, getState) => {
 	await dispatch(fetchPosts());
 
-	// console.log(	getState().posts);
-
-	// Array of all userIds, then get the unique ones only
+	// getState().posts == Array of all userIds, then get the unique ones only
 	// OP:  (10) [1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-	const userIds = _.uniq(_.map(getState().posts, 'userId'));
-	/*
-	 console.log(userIds);
-	 Todo: Iterate over the Array of ids and for every id
-	  call action creator dispatch(fetchUser(id))
-	 Note: We will not put an await before dispatch because
-	  we will have no other logic after this which would
-	  require we fetch anymore users
-	 Important: the async/await syntax DOES NOT work
-	  for forEach() statements and would have to adjust:  for example
-	 Code:
-	    await Promise.all(userIds.map(id => dispatch(fetchUser(id)))  etc...
-	 */
+	// const userIds = _.uniq(_.map(getState().posts, 'userId'));
+	// userIds.forEach(id => dispatch(fetchUser(id)));
 
-	userIds.forEach(id => dispatch(fetchUser(id)));
+	// Todo:  Use Lodash's _.chain() method to shorten above code
+	_.chain(getState().posts)
+		.map('userId')
+		.uniq()
+		.forEach(id => dispatch(fetchUser(id)))
+		.value();
 }
 
 export const fetchPosts = () => async dispatch => {
@@ -30,8 +22,6 @@ export const fetchPosts = () => async dispatch => {
 	dispatch({type: 'FETCH_POSTS', payload: response.data})
 }
 
-
-// Todo: Create an action creator to fetch one user at a time
 export const fetchUser = (id) => async dispatch => {
 	const response = await jsonPlaceholder.get(`/users/${id}`);
 	dispatch({type: 'FETCH_USER', payload: response.data});
